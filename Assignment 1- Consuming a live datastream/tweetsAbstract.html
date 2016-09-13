@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Valerie O's Abstract visualization of live tweets</title>
+	<!-- Data visualization of a live data stream--
+		 Datastream used to get live tweets 
+			PubNum- https://www.pubnub.com/developers/realtime-data-streams/twitter-stream/
+		 
+		 Libraries used:
+			1. FireworksJS- https://www.thesoftwareguy.in/create-fireworks-with-javascript-using-fireworks-js/
+			   originally designed by - Shahrukh Khan
+			   published: 31th October, 2013.
+			
+			2. ResponsiveVoiceJS- http://responsivevoice.org/
+			   Used for converting Text to speech
+	
+	-->
+	<script src="jquery-3.1.0.min.js"></script>
+	
+	<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="fireworks/css/fireworks.css" media="screen" />
+	<script type="text/javascript" src="fireworks/js/soundmanager2-nodebug-jsmin.js"></script>
+	<script type="text/javascript" src="fireworks/js/fireworks.js"></script>
+	<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+	
+	<script type = "text/javascript" >
+	
+	$(function () {
+	
+		
+		var x=0,cir;
+		var myMusic;
+		var myMusic2;
+		var myMusic3;
+		
+		PUBNUB.init({
+		subscribe_key: 'sub-c-78806dd4-42a6-11e4-aed8-02ee2ddab7fe' 
+		}).subscribe({
+		channel : 'pubnub-twitter',
+		message : function(msg)
+				  { 
+						//check for only verified users	and display firework
+					if(msg.user.verified ==true){
+						
+						console.log(msg.user.name);
+						console.log(msg.user.followers_count);
+						
+						/*syntax
+						//createFirework(nRadius,nParticles,nCircles,nBurstType,startX,
+						  startY,burstX,burstY,allowRandom,obeyBoundaries); 
+						  
+							nRadius – It is the percentage window size that will be used (1-100)
+							nParticles – Number of elements that will show up after the explosion (1-200)
+							nCircles – Total number of cirlces to show up after the explosion (0-8)
+							nBurstType – the base color (1-7)
+							startX – start position i.e. left to right (1-100)
+							startY– start position top to bottom (1-100)
+							burstX – the burst position left to right (1-100)
+							burstY – – the burst position top to bottom (1-100)
+							allowRandom– the particles will explode randomly (true or false)
+							obeyBoundaries – the explode particles go beyond the window document (true or false)
+						  
+						  */
+						createFirework(100,800,8,5,1,100,50,50,false,false);
+						
+						//playSound();
+						playSound2();
+						var name =msg.user.name;
+						if(msg.user.followers_count > 300000){
+							responsiveVoice.speak(name);
+						}
+						
+						if(msg.user.followers_count < 1000){
+							playSound3();
+						}
+								
+					}	
+						
+						 
+				  }
+		});
+		
+		
+	function playSound(){
+	
+		myMusic = new Audio("fireworks/audio/pop6.mp3");
+		myMusic.play();
+	}
+	function playSound2(){
+	
+		myMusic2 = new Audio("fireworks/audio/boom4.mp3");
+		myMusic2.play();
+		
+	}
+	function playSound3(){
+	
+		myMusic3 = new Audio("fireworks/audio/hahaha.mp3");
+		myMusic3.play();
+		
+	}
+
+		
+	});	//end of onload function
+</script>
+	
+</head>
+<body style="background-color:#000;">
+	
+<div id="fireworks-template">
+    <div id="fw" class="firework"></div>
+    <div id="fp" class="fireworkParticle"><img src="fireworks/image/particles.gif" alt="" /></div>
+  </div>
+<div id="fireContainer"></div>
+	
+	
+</body>
+</html>
