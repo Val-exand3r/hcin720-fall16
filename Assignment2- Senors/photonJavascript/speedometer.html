@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Speedometer</title>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    
+    <script type="text/javascript" src="http://iop.io/js/vendor/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
+    
+    <style>
+        body {
+            font: 16px arial;
+            background-color: #515151;
+        }
+
+        .unselectable {
+            -moz-user-select: -moz-none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* css formats for the gauge */
+        .gauge .domain {
+            stroke-width: 4px;
+            stroke: #fff;
+            
+        }
+
+        .gauge .tick line {
+            stroke: #fff;
+            stroke-width: 4px;
+        }
+        
+        .gauge line {
+            stroke: #fff;
+        }
+
+        .gauge .arc, .gauge .cursor {
+            opacity: 0;
+        }
+
+        .gauge .major {
+            fill: #fff;
+            font-size: 20px;
+            font-family: 'Play', verdana, sans-serif;
+            font-weight: normal;
+        }
+        
+        .gauge .indicator {
+/*            stroke: #EE3311;*/
+            stroke: #EE3311;
+            fill: #000;
+            stroke-width: 4px;
+        }
+
+        /* css formats for the segment display */
+        .segdisplay .on {
+            fill: #00FFFF;
+
+        }
+
+        .segdisplay .off {
+            fill: #00FFFF;
+            opacity: 0.15;
+        }
+        
+        #place{
+           margin-left: 30%; 
+        }
+        
+        #heading{
+            color: white;
+            font-size: 30px;
+            
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="place">
+        <h1 id="heading">My Speed</h1>
+        <span id="speedometer"></span>
+    </div>
+    
+     <script type="text/javascript">
+    var setTick = 0;
+    //function start() {
+
+//        document.getElementById("value").innerHTML = "Waiting for data...";
+//        document.getElementById("acc").innerHTML = "Waiting for acc...";
+//        document.getElementById("gyro").innerHTML = "Waiting for gyro...";
+        
+        var deviceID = "34001e000647353138383138";
+        var accessToken = "f60edfaa36065f8da318a16e2a231664817ac2f7";
+        var eventSource = new EventSource("https://api.spark.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
+
+        eventSource.addEventListener('open', function(e) {
+            console.log("Opened!"); },false);
+
+        eventSource.addEventListener('error', function(e) {
+            console.log("Errored!"); },false);
+
+        eventSource.addEventListener('motionChange', function(e) {
+           var parsedData = JSON.parse(e.data);
+//            var tempSpan = document.getElementById("value");
+//            
+//            tempSpan.innerHTML =  " value: " + parsedData.data ;
+//            tempSpan.style.fontSize = "28px";
+           // tsSpan.innerHTML = "At timestamp " + parsedData.published_at;
+            //tsSpan.style.fontSize = "9px";
+            var x =parseInt(parsedData.data )/100;
+            console.log(x);
+            setTick =x;
+            console.log(setTick);
+            if(x<=100){
+               getTick(x);  
+                //getTick(0);
+            }
+           
+            //getTick(0);
+        }, false);
+        
+        eventSource.addEventListener('Acceleration', function(e) {
+            var parsedData = JSON.parse(e.data);
+            var tempSpan = document.getElementById("acc");
+            
+            tempSpan.innerHTML =  " acc: " + parsedData.data ;
+            tempSpan.style.fontSize = "28px";
+            tempSpan.style.color = "red";
+           // tsSpan.innerHTML = "At timestamp " + parsedData.published_at;
+            //tsSpan.style.fontSize = "9px";
+        }, false);
+        
+        eventSource.addEventListener('Gyroscope', function(e) {
+            var parsedData = JSON.parse(e.data);
+            var tempSpan = document.getElementById("gyro");
+            
+            tempSpan.innerHTML =  " gyro: " + parsedData.data ;
+            tempSpan.style.fontSize = "28px";
+            tempSpan.style.color = "blue";
+           // tsSpan.innerHTML = "At timestamp " + parsedData.published_at;
+            //tsSpan.style.fontSize = "9px";
+        }, false);
+        
+       // return setTick;
+    //}
+    
+    
+    
+ //clock
+    
+        
+        var svg = d3.select("#speedometer")
+                .append("svg:svg")
+                .attr("width", 1000)
+                .attr("height", 1000);
+
+
+        var gauge = iopctrl.arcslider()
+                .radius(220)
+                .events(false)
+                .indicator(iopctrl.defaultGaugeIndicator);
+        gauge.axis().orient("in")
+                .normalize(true)
+                .ticks(12)
+                .tickSubdivide(4)
+                .tickSize(10, 18, 10)
+                .tickPadding(50)
+                .scale(d3.scale.linear()
+                        .domain([0, 100])
+                        .range([-3*Math.PI/4, 3*Math.PI/4]));
+
+        var segDisplay = iopctrl.segdisplay()
+                .width(100)
+                .digitCount(6)
+                .negative(false)
+                .decimals(0);
+
+        svg.append("g")
+                .attr("class", "segdisplay")
+                .attr("transform", "translate(170, 230)")
+                .call(segDisplay);
+
+        svg.append("g")
+                .attr("class", "gauge")
+                .call(gauge);
+
+//        segDisplay.value(56749); //set this to change
+        //gauge.value(92); //set this to change
+    var dis =0
+    function getTick(setTick){
+       if(setTick != 0) {
+           dis +=setTick;
+            segDisplay.value(setTick); 
+       }
+        gauge.value(setTick); //set this to change
+       
+       
+    }
+          
+    </script>
+</body>

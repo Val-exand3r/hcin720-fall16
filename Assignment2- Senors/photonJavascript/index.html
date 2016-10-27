@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+    <span id="value"></span><br>
+    <div id="acc"></div><br>
+    <div id="gyro"></div><br>
+    <br><br>
+    <button onclick="start()">Connect</button>
+
+    <script type="text/javascript">
+    function start() {
+
+        document.getElementById("value").innerHTML = "Waiting for data...";
+        document.getElementById("acc").innerHTML = "Waiting for acc...";
+        document.getElementById("gyro").innerHTML = "Waiting for gyro...";
+        
+        var deviceID = "34001e000647353138383138";
+        var accessToken = "f60edfaa36065f8da318a16e2a231664817ac2f7";
+        var eventSource = new EventSource("https://api.spark.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
+
+        eventSource.addEventListener('open', function(e) {
+            console.log("Opened!"); },false);
+
+        eventSource.addEventListener('error', function(e) {
+            console.log("Errored!"); },false);
+
+        eventSource.addEventListener('motionChange', function(e) {
+            var parsedData = JSON.parse(e.data);
+            var tempSpan = document.getElementById("value");
+           var x =parseInt(parsedData.data )/100;
+            console.log(x);
+            tempSpan.innerHTML =  " value: " + parsedData.data ;
+            tempSpan.style.fontSize = "28px";
+           // tsSpan.innerHTML = "At timestamp " + parsedData.published_at;
+            //tsSpan.style.fontSize = "9px";
+        }, false);
+        
+        eventSource.addEventListener('Acceleration', function(e) {
+            var parsedData = JSON.parse(e.data);
+            var tempSpan = document.getElementById("acc");
+            
+            tempSpan.innerHTML =  " acc: " + parsedData.data ;
+            tempSpan.style.fontSize = "28px";
+            tempSpan.style.color = "red";
+           // tsSpan.innerHTML = "At timestamp " + parsedData.published_at;
+            //tsSpan.style.fontSize = "9px";
+        }, false);
+        
+        eventSource.addEventListener('Gyroscope', function(e) {
+            var parsedData = JSON.parse(e.data);
+            var tempSpan = document.getElementById("gyro");
+            
+            tempSpan.innerHTML =  " gyro: " + parsedData.data ;
+            tempSpan.style.fontSize = "28px";
+            tempSpan.style.color = "blue";
+           // tsSpan.innerHTML = "At timestamp " + parsedData.published_at;
+            //tsSpan.style.fontSize = "9px";
+        }, false);
+    }
+    </script>
+</body>
+</html>

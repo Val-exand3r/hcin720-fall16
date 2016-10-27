@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Valerie O's Line visualization of live tweets</title>
+	
+	<!-- Data visualization of a live data stream--
+		 Datastream used to get live tweets 
+			PubNum- https://www.pubnub.com/developers/realtime-data-streams/twitter-stream/
+		 
+		 Libraries used:
+			1. CanvasJS- http://canvasjs.com/docs/charts/basics-of-creating-html5-chart/updating-chart-options/
+				The line graph was drawn with codes adopted from CanvasJS.
+	
+	-->
+	<script src="jquery-3.1.0.min.js"></script>
+	<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+	<script type = "text/javascript" >
+	
+	$(function () {
+	
+		
+		var x,x1,x2,x3,countUs =0, countCanada=0, countUk=0, countBrazil=0;
+	var count;
+		//declare the datapoint array to hold all new dataPoints (points to be added dynamically as the data is read in)
+		var dataPoints = [];
+		var dataPoints1 = [];
+		var dataPoints2 = [];
+		var dataPoints3 = [];
+        var tweetCountry;
+        
+     var deviceID = "34001e000647353138383138";
+        var accessToken = "f60edfaa36065f8da318a16e2a231664817ac2f7";
+      var setFunc = "tweet";
+
+		
+		var chart = new CanvasJS.Chart("chartContainer", {
+				zoomEnabled: true,
+				panEnabled: true,
+				title : {
+					text : "Line graph Showing the Top 4 countries with the Highest number of Tweets per second"
+					
+				},
+				
+				axisX:{
+					title: "Time(seconds)",
+					titleFontSize: 20,
+					titleFontColor: "rgb(0,75,141)",
+					valueFormatString:"0 s",
+					
+				},
+				axisY: {
+					
+					title: "Number of Tweets per second",
+					titleFontSize: 20,
+					titleFontColor: "rgb(0,75,141)",
+					valueFormatString:"0 tweet(s)",
+					
+				
+				},
+				theme: "theme5",
+				toolTip:{
+                                shared: true,
+                        },
+				data : [
+					{
+						type: "line",
+						showInLegend: true,           
+						name: "United States", 
+						dataPoints: dataPoints
+
+
+					},
+					{
+						type: "line",
+						showInLegend: true,           
+						name: "France", 
+						dataPoints: dataPoints1
+
+
+					},
+					{
+						type: "line",
+						showInLegend: true,           
+						name: "Brazil", 
+						dataPoints: dataPoints2
+
+
+					},
+					{
+						type: "line",
+						showInLegend: true,           
+						name: "United Kingdom", 
+						dataPoints: dataPoints3
+
+
+					},
+				],
+				 legend:{
+					cursor:"pointer",
+					itemclick:function(e){ //to set visibility when you click on any of th legends
+					  if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+						e.dataSeries.visible = false;
+					  }
+					  else{
+						e.dataSeries.visible = true;
+					  }
+					  chart.render();
+					}
+				  }
+			});
+
+		chart.render();
+		
+		//getting the live data from pubnub and creating new data points from them 
+		PUBNUB.init({
+		subscribe_key: 'sub-c-78806dd4-42a6-11e4-aed8-02ee2ddab7fe' 
+		}).subscribe({
+		channel : 'pubnub-twitter',
+		message : function(msg)
+				  { 	//check for source country of each user, and update count per country.
+						
+                      console.log(msg.place.country);
+                        tweetCountry = msg.place.country;
+                        setValue(tweetCountry);//update the datapoints accordingly
+						if(msg.place !== null){
+                            if(msg.place.country !==null){
+                              if(count ==1000000){
+                                count=0;
+                                console.log(msg.place.country);
+                                tweetCountry = msg.place.country;
+                                setValue(tweetCountry);
+                            }
+                            count++;  
+                                
+                            }
+                            
+                            
+							if(msg.place.country =="United States"){
+					
+								countUs++;
+								
+								x=countUs;
+								//countryName = "United States";
+							
+							}else if(msg.place.country =="France"){
+							
+								//console.log("canada");
+								countCanada++;
+								x1=countCanada;
+								//countryName1 = "France";
+							}
+							else if(msg.place.country =="Brazil"){
+							
+								countBrazil++;
+								x2=countBrazil;
+								//countryName2 = "Brazil";
+							}else if(msg.place.country =="United Kingdom"){
+							
+								countUk++;
+								x3=countUk;
+								//countryName3 = "United Kingdom";
+							}
+						
+							
+						}
+						
+						 
+				  }
+		});
+        
+function setValue(tweetCountry) {
+	var requestURL = "https://api.spark.io/v1/devices/" +deviceID + "/" + setFunc + "/";
+        $.post( requestURL, { params: tweetCountry, access_token: accessToken });
+}
+		
+		var updateCount =0;
+			//update the chart every second
+			var updateChart = function () {
+				updateCount++;
+				dataPoints.push({
+				
+					y : x //, label:countryName
+					
+				});
+				dataPoints1.push({
+					
+					y : x1 //, label:countryName1
+				});
+				
+				dataPoints2.push({
+					
+					y : x2//, label:countryName2
+				});
+				
+				dataPoints3.push({
+				
+					y : x3//, label:countryName3
+				});
+				
+				chart.options.title.text = "Seconds count: " + updateCount+ " seconds"; 
+				chart.options.data[0].legendText = "United States -" + countUs +" tweet(s)";
+				chart.options.data[1].legendText = "France -" + countCanada+" tweet(s)";
+				chart.options.data[2].legendText = "Brazil -" + countBrazil +" tweet(s)";
+				chart.options.data[3].legendText = "United Kingdom -" + countUk +" tweet(s)"; 
+
+
+				chart.render();    
+				
+			};
+
+			// update chart every second
+			setInterval(function(){updateChart()}, 1000);
+	});	
+        
+</script>
+	
+</head>
+<body>
+	<script src="canvasjs.min.js"></script>
+	<div></div>
+	<div id = "chartContainer" style = "height: 100%; width: 100%; position:relative; top:50px" />
+	
+	
+</body>
+</html>
