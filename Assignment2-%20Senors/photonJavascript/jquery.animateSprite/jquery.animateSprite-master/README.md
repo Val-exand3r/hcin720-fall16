@@ -3,7 +3,7 @@
 <h2>Introduction</h2>
 <p>The main goal for this assignment was to send data back and forth from a physical object (the Photon) to a computer. 
 
-"This was done via the Particle cloud.</p>
+This was done via the Particle cloud.</p>
 
 <p>Input Device- Flora LSM 9DOF Motion Sensor</p>
 
@@ -18,11 +18,11 @@
  <h2>Libraries</h2>
  <ul>
     <li><a href="https://d3js.org/" target="_blank">
-    D3</a> - The Speedometer was drawn with codes adopted from D3.org.</li>
+    D3</a> - The Speedometer was drawn with codes adopted from D3.org. The tick indicator of the guage changes, based on the live data sent to the cloud by the motion sensor</li>
     <li><a href="http://blaiprat.github.io/jquery.animateSprite/" target="_blank">
-    jquery.animateSprite</a> - The Animated character at the top of the display was drawn with codes adoted from the jquery.animateSprite library .</li>
+    jquery.animateSprite</a> - The Animated character at the top of the display was drawn with codes adoted from the jquery.animateSprite library . The pace rate of the animation was also changed, based on live data read in from the cloud.</li>
     <li><a href="http://responsivevoice.org/" target="_blank">
-    ResponsiveVoiceJS</a>-  Used for converting Text to speech, to warn users when they are moving too fast</li>
+    ResponsiveVoiceJS</a>-  Used for converting Text to speech. It reads a warning text, and alerts users when they are moving too fast</li>
  </ul>
     
  <p>Live Demos can be found here:</p>
