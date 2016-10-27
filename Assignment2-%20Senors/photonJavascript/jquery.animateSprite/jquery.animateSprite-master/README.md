@@ -166,7 +166,7 @@ void loop()
 
 <h3>Set-Up and Output Images</h3>
 ![][setup]
-<p>Input and Output setup image, showing data being read from the cloud, and displayed on the Neopixels</p>
+<caption>Input and Output setup image, showing data being read from the cloud, and displayed on the Neopixels</caption>
 [setup]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/project2setup.jpg
 
 ![][notmoving]
