@@ -21,27 +21,27 @@
 
 
 <code>
-// This #include statement was automatically added by the Particle IDE.
-#include "neopixel/neopixel.h"
+<p> This #include statement was automatically added by the Particle IDE.<br>
+#include "neopixel/neopixel.h"<br>
 
-// This #include statement was automatically added by the Particle IDE.
-#include "Adafruit_LSM9DS0/Adafruit_LSM9DS0.h"
+// This #include statement was automatically added by the Particle IDE.<br>
+#include "Adafruit_LSM9DS0/Adafruit_LSM9DS0.h"<br>
 
-//#include "Adafruit_LSM9DS0/Adafruit_LSM9DS0.h"
-#include "Adafruit_LSM9DS0/Adafruit_Sensor.h"  // not used in this demo but required!
-#include "math.h"
-
-
-
-// mess with this number to adjust TWINklitude :)
-// lower number = more sensitive
-#define MOVE_THRESHOLD 200
-
-/* Assign a unique base ID for this sensor */
-Adafruit_LSM9DS0 lsm = Adafruit_LSM9DS0(1000);  // Use I2C, ID #1000
+//#include "Adafruit_LSM9DS0/Adafruit_LSM9DS0.h"<br>
+#include "Adafruit_LSM9DS0/Adafruit_Sensor.h"  // not used in this demo but required!<br>
+#include "math.h"<br><br>
 
 
-#define  Output_Pin D3 //for the LED OUTPUT BECAUSE IT IS CONSTANT
+
+// mess with this number to adjust TWINklitude :)<br>
+// lower number = more sensitive<br>
+#define MOVE_THRESHOLD 200<br>
+
+/* Assign a unique base ID for this sensor */<br>
+Adafruit_LSM9DS0 lsm = Adafruit_LSM9DS0(1000);  // Use I2C, ID #1000<br>
+
+
+#define  Output_Pin D3 //for the LED OUTPUT BECAUSE IT IS CONSTANT<br>
     
 
 void setupSensor()
