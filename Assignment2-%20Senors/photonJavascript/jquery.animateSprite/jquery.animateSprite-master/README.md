@@ -20,29 +20,29 @@
 <p>This reads Inputs from the sensor, publishing it to the cloud. The output device (Neopixel strips) subscribes to the data, and displays accordingly</p>
 
 
-<code>
+
 ```c
-<p> This #include statement was automatically added by the Particle IDE.<br>
-##include "neopixel/neopixel.h"<br>
+//This #include statement was automatically added by the Particle IDE.
+#include "neopixel/neopixel.h"
 
-// This #include statement was automatically added by the Particle IDE.<br>
-#include "Adafruit_LSM9DS0/Adafruit_LSM9DS0.h"<br>
+// This #include statement was automatically added by the Particle IDE.
+#include "Adafruit_LSM9DS0/Adafruit_LSM9DS0.h"
 
-//#include "Adafruit_LSM9DS0/Adafruit_LSM9DS0.h"<br>
-#include "Adafruit_LSM9DS0/Adafruit_Sensor.h"  // not used in this demo but required!<br>
-#include "math.h"<br><br>
-
-
-
-// mess with this number to adjust TWINklitude :)<br>
-// lower number = more sensitive<br>
-#define MOVE_THRESHOLD 200<br>
-
-/* Assign a unique base ID for this sensor */<br>
-Adafruit_LSM9DS0 lsm = Adafruit_LSM9DS0(1000);  // Use I2C, ID #1000<br>
+//#include "Adafruit_LSM9DS0/Adafruit_LSM9DS0.h"
+#include "Adafruit_LSM9DS0/Adafruit_Sensor.h"  // not used in this demo but required!
+#include "math.h"
 
 
-#define  Output_Pin D3 //for the LED OUTPUT BECAUSE IT IS CONSTANT<br>
+
+// mess with this number to adjust TWINklitude :)
+// lower number = more sensitive
+#define MOVE_THRESHOLD 200
+
+/* Assign a unique base ID for this sensor */
+Adafruit_LSM9DS0 lsm = Adafruit_LSM9DS0(1000);  // Use I2C, ID #1000
+
+
+#define  Output_Pin D3 //for the LED OUTPUT BECAUSE IT IS CONSTANT
     
 
 void setupSensor()
@@ -163,12 +163,22 @@ void loop()
   
 
 ```
-</code><br>
 
+<h3>Set-Up and Output Images</h3>
 ![][setup]
-[setup]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/extra.jpg
-<img src="http://github.com/Val-exand3r/hcin720-fall16/tree/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/extra.jpg">
+<p>Input and Output setup image, showing data being read from the cloud, and displayed on the Neopixels</p>
+[setup]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/project2setup.jpg
 
+![][notmoving]
+<p>Visualization on the webpage when no motion has occured</p>
+[notmoving]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/notmoving.png
+
+![][moving]
+<p>Visualization on the webpage when motion begins to occur</p>
+[moving]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/moving.png
+
+![][extra]
+[extra]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/extra.jpg
 <a href="http://rawgit.com/Val-exand3r/hcin720-fall16/master/Assignment2-%2520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/walkingLive.html" target="_blank">
 Input Visuation
 </a><br><br>
