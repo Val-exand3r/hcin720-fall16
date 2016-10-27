@@ -163,6 +163,9 @@ void loop()
 
 
 </code><br>
+
+![][setup]
+[setup]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/extra.jpg
 <img src="http://github.com/Val-exand3r/hcin720-fall16/tree/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/extra.jpg">
 
 <a href="http://rawgit.com/Val-exand3r/hcin720-fall16/master/Assignment2-%2520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/walkingLive.html" target="_blank">
