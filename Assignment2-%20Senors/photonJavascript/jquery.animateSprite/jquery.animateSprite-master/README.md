@@ -170,7 +170,7 @@ void loop()
 [setup]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/project2setup.jpg
 
 ![][notmoving]
-<p>Figure 2:Visualization on the webpage when no motion has occured</p><br>
+<p>Figure 2:Visualization on the webpage when no motion has occured</p>
 [notmoving]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/notmoving.png
 
 ![][moving]
