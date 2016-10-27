@@ -153,7 +153,7 @@ void loop()
 
  
   void colorWipe(uint32_t c, uint8_t wait) {
-      for(uint16_t i=0; i<strip.numPixels(); i++) {
+      for(uint16_t i=0; istrip.numPixels(); i++) {
           strip.setPixelColor(i, c);
           strip.show();
           delay(wait);
