@@ -166,19 +166,26 @@ void loop()
 
 <h3>Set-Up and Output Images</h3>
 ![][setup]
-<caption>Input and Output setup image, showing data being read from the cloud, and displayed on the Neopixels</caption>
+<p>Figure 1:Input and Output setup image, showing data being read from the cloud, and displayed on the Neopixels</p><br>
 [setup]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/project2setup.jpg
 
 ![][notmoving]
-<p>Visualization on the webpage when no motion has occured</p>
+<p>Figure 2:Visualization on the webpage when no motion has occured</p><br>
 [notmoving]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/notmoving.png
 
 ![][moving]
-<p>Visualization on the webpage when motion begins to occur</p>
+<p>Figure 3:Visualization on the webpage when motion begins </p><br>
 [moving]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/moving.png
 
+![][speed]
+<p>Figure 4: Speedometer created with D3 framework, that keeps updating as the acceleration changes</p>
+[speed]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/speedometer.png
+
+<h2>Extra Visualization from an external data source</h2>
+<p>For extra points,  I consumed data from a live data stream, <a href="https://www.pubnub.com/" target="_blank">PUBNUB Tweets</a>. Once every 10 seconds, I post the country name from the tweet at that time, to the cloud. The Photon gets the country's name, and changes the color of the Neopixel ring , to match the color of the country's flag</p>
 ![][extra]
 [extra]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/extra.jpg
+<p>Figure 5: Neopixel ring displaying the flag color of the country(France) that sent in a tweet</p>
 <a href="http://rawgit.com/Val-exand3r/hcin720-fall16/master/Assignment2-%2520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/walkingLive.html" target="_blank">
 Input Visuation
 </a><br><br>
