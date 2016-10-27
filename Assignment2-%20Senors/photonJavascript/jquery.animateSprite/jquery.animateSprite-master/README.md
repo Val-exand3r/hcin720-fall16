@@ -15,6 +15,29 @@
 
 <p> Using my Input device, I am sensing the x, y and Z co-ordinates from the Accelerometer,and calculating the magnitude at the first point. I then read in a second x, y, z Accelerometer values and calculate the magnitude as well. If the difference in the magnitude at point A and B is greater than my set Threshold value, it means that a change has occured, thus, motion has begun.</p>
 
+ <h2>Libraries</h2>
+ <ul>
+    <li><a href="https://d3js.org/" target="_blank">
+    D3</a> - The Speedometer was drawn with codes adopted from D3.org.</li>
+    <li><a href="http://blaiprat.github.io/jquery.animateSprite/" target="_blank">
+    jquery.animateSprite</a> - The Animated character at the top of the display was drawn with codes adoted from the jquery.animateSprite library .</li>
+    <li><a href="http://responsivevoice.org/" target="_blank">
+    ResponsiveVoiceJS</a>-  Used for converting Text to speech, to warn users when they are moving too fast</li>
+ </ul>
+    
+ <p>Live Demos can be found here:</p>
+ <ul>
+    <li>
+        <a href="http://rawgit.com/Val-exand3r/hcin720-fall16/master/Assignment2-%2520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/walkingLive.html" target="_blank">
+Input Visuation
+</a><br><br>
+    </li>
+    <li>
+        <a href="http://rawgit.com/Val-exand3r/hcin720-fall16/master/Assignment2-%20Senors/photonJavascript/particleTweet.html" target="_blank">OutPut Visualization</a>
+    </li>
+ </ul>
+
+
 <h3>Photon code </h3>
 <p>Main code adopted from Adafruit.com, and customized by  me</p>
 <p>This reads Inputs from the sensor, publishing it to the cloud. The output device (Neopixel strips) subscribes to the data, and displays accordingly</p>
@@ -166,7 +189,7 @@ void loop()
 
 <h3>Set-Up and Output Images</h3>
 ![][setup]
-<p>Figure 1:Input and Output setup image, showing data being read from the cloud, and displayed on the Neopixels</p><br>
+<p>Figure 1:Input and Output setup image, showing data being read from the cloud, and displayed on the Neopixels</p>
 [setup]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/project2setup.jpg
 
 ![][notmoving]
@@ -186,7 +209,100 @@ void loop()
 ![][extra]
 [extra]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/extra.jpg
 <p>Figure 5: Neopixel ring displaying the flag color of the country(France) that sent in a tweet</p>
-<a href="http://rawgit.com/Val-exand3r/hcin720-fall16/master/Assignment2-%2520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/walkingLive.html" target="_blank">
-Input Visuation
-</a><br><br>
-<a href="http://rawgit.com/Val-exand3r/hcin720-fall16/master/Assignment2-%20Senors/photonJavascript/particleTweet.html" target="_blank">OutPut Visualization</a>
+
+<h3>Photon code for tweets </h3>
+```c
+// This #include statement was automatically added by the Particle IDE.
+#include "neopixel/neopixel.h"
+#define  Output_Pin D3 
+
+
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, Output_Pin); 
+void setup() {
+    Serial.begin(9600);
+    //pinMode(Output_Pin,OUTPUT);
+    strip.begin();
+    strip.show(); // Initialize all pixels to 'off'
+    Particle.function("tweet", led);
+    strip.setBrightness(6);
+}
+
+void loop() {
+    delay(1000);
+    strip.show();
+}
+
+int led(String extra){
+    Serial.print("Got command");
+    Serial.print(extra);
+    
+    if(extra =="United States"){
+        
+        for(int i=0; i<=4; i++){
+          strip.setPixelColor(i, strip.Color(191,10,48));  
+            
+        }
+        
+        for(int i=5; i<=10; i++){
+          strip.setPixelColor(i, strip.Color(0,40,104));  
+           
+        }
+        for(int i=11; i<=15; i++){
+          strip.setPixelColor(i, strip.Color(255,255,255));  
+           
+        }
+        
+        
+        
+     
+    }else if(extra =="France"){
+        for(int i=0; i<=4; i++){
+          strip.setPixelColor(i, strip.Color(0,0,255));  
+          
+        }
+        
+        for(int i=5; i<=10; i++){
+          strip.setPixelColor(i, strip.Color(255,255,255));  
+            
+        }
+        for(int i=11; i<=15; i++){
+          strip.setPixelColor(i, strip.Color(255,0,0));  
+            
+        } 
+    }
+    else if(extra =="Brazil"){
+        for(int i=0; i<=4; i++){
+          strip.setPixelColor(i, strip.Color(0,155,58));  
+            
+        }
+        
+        for(int i=5; i<=10; i++){
+          strip.setPixelColor(i, strip.Color(254,223,0));  
+           
+        }
+        for(int i=11; i<=15; i++){
+          strip.setPixelColor(i, strip.Color(0,39,118));  
+           
+        } 
+    }else if(extra =="Nigeria"){
+        for(int i=0; i<=4; i++){
+          strip.setPixelColor(i, strip.Color(0,135,81));  
+         
+        }
+        
+        for(int i=5; i<=10; i++){
+          strip.setPixelColor(i, strip.Color(255,255,255));  
+            
+        }
+        for(int i=11; i<=15; i++){
+          strip.setPixelColor(i, strip.Color(0,135,81));  
+            
+        } 
+    }
+    
+    return 0;
+}
+
+```
+
+
