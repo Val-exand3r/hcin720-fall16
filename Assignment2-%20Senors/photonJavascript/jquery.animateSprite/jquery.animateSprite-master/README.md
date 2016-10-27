@@ -174,7 +174,7 @@ void loop()
 [notmoving]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/notmoving.png
 
 ![][moving]
-<p>Figure 3:Visualization on the webpage when motion begins </p><br>
+<p>Figure 3:Visualization on the webpage when motion begins </p>
 [moving]:https://github.com/Val-exand3r/hcin720-fall16/raw/master/Assignment2-%252520Senors/photonJavascript/jquery.animateSprite/jquery.animateSprite-master/img/moving.png
 
 ![][speed]
