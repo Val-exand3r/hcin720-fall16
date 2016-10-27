@@ -21,8 +21,9 @@
 
 
 <code>
+```c
 <p> This #include statement was automatically added by the Particle IDE.<br>
-#include "neopixel/neopixel.h"<br>
+##include "neopixel/neopixel.h"<br>
 
 // This #include statement was automatically added by the Particle IDE.<br>
 #include "Adafruit_LSM9DS0/Adafruit_LSM9DS0.h"<br>
@@ -161,7 +162,7 @@ void loop()
   }
   
 
-
+```
 </code><br>
 
 ![][setup]
