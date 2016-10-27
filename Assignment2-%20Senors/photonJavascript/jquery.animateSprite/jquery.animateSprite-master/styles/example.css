@@ -1,0 +1,13 @@
+.animation {
+    background: url(../img/man.png);
+    width: 80px;
+    height: 127px;
+}
+
+.animation-2 {
+    background: url(../img/man.png);
+/*
+    width: 125px;
+    height: 157px;
+*/
+}

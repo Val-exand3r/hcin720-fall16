@@ -1,0 +1,328 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Real-time Motion Sensing by Valerie O. Okpoko</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="styles/example.css">
+   
+       
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+
+        <script type="text/javascript" src="http://iop.io/js/vendor/d3.v3.min.js"></script>
+        <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
+        <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
+        <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
+        
+        <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+
+        <style>
+            body {
+                font: 16px arial;
+/*                background-color: #515151;*/
+                background-color: #000000;
+                padding-left: 30px;
+                padding-top: 20px;
+            }
+
+            .unselectable {
+                -moz-user-select: -moz-none;
+                -khtml-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            /* css formats for the gauge */
+            .gauge .domain {
+                stroke-width: 15px;
+                stroke: #fff;
+                
+
+            }
+
+            .gauge .tick line {
+                stroke: #fff;
+                stroke-width: 4px;
+                
+            }
+
+            .gauge line {
+                stroke: #fff;
+                stroke-width:2px;
+              
+            }
+
+            .gauge .arc, .gauge .cursor {
+                opacity: 0;
+            }
+
+            .gauge .major {
+                fill: #fff;
+                font-size: 20px;
+                font-family: 'Play', verdana, sans-serif;
+                font-weight: normal;
+            }
+
+            .gauge .indicator {
+    /*            stroke: #EE3311;*/
+                stroke: #EE3311;
+                fill: #000;
+                stroke-width: 4px;
+            }
+
+            /* css formats for the segment display */
+            .segdisplay .on {
+                fill: #00FFFF;
+
+            }
+
+            .segdisplay .off {
+                fill: #00FFFF;
+                opacity: 0.15;
+            }
+
+            #place{
+               margin-left: 30%; 
+            }
+
+            #heading{
+                color: grey;
+                font-size: 25px;
+
+
+            }
+            
+            .text{
+                color:white;
+            }
+            #ntMove{
+                display:none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="animation animation-2"> 
+            
+           
+        </div>
+         <h1  id="move" class="text">I am <span id="walkingString">not moving</span></h1>
+            <h1 class="text" id="ntMove">I am not moving</h1>
+         <h1 id="heading">My current speed <span id="speedString" class="text">0</span> m/s</h1>
+        <div id="place">
+            
+            
+            <span id="speedometer"></span>
+       
+        </div>
+        
+
+
+        
+        <script src="jquery-3.1.0.min.js"></script>
+<!--        <script src="bower_components/jquery/jquery.js"></script>-->
+        <script src="scripts/jquery.animateSprite.js"></script>
+
+        
+        <script type="text/javascript">
+        
+        var setTick = 0;
+        var walk;
+ 
+        var deviceID = "34001e000647353138383138";
+        var accessToken = "f60edfaa36065f8da318a16e2a231664817ac2f7";
+        var eventSource = new EventSource("https://api.spark.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
+
+        eventSource.addEventListener('open', function(e) {
+            console.log("Opened!"); },false);
+
+        eventSource.addEventListener('error', function(e) {
+            console.log("Errored!"); },false);
+
+        eventSource.addEventListener('motionChange', function(e) {
+            var parsedData = JSON.parse(e.data);
+            var tempSpan = document.getElementById("walkingString");
+            tempSpan.innerHTML =  " walking";
+            
+            
+            var x =parseInt(parsedData.data )/100;
+            //console.log(x);
+
+            var curSpeed = document.getElementById("speedString");
+            curSpeed.innerHTML =  x;
+            
+            walk =x;
+            
+            setTick =x;
+            
+            console.log(setTick);
+            if(x<=100){
+             
+               getTick(x);
+                tempSpan.innerHTML =  " walking";
+                if(x>50){
+                responsiveVoice.speak("Slow down, you are going to break your photon");
+                    tempSpan.innerHTML =  " walking too fast";
+                }else if(x<=10){
+                tempSpan.innerHTML =  " moving slowly";
+            }
+            }
+            
+            setWalking(walk);
+            //goRight();
+            setReset();
+            
+            
+            //goRight();
+            
+        }, false);
+        
+  
+            
+/*D3 GUAGE*/
+            
+ var svg = d3.select("#speedometer")
+                .append("svg:svg")
+                .attr("width", 2000)
+                .attr("height", 1500);
+
+
+        var gauge = iopctrl.arcslider()
+                .radius(250)
+                .events(false)
+                .indicator(iopctrl.defaultGaugeIndicator);
+        gauge.axis().orient("out")
+                .normalize(true)
+                .ticks(12)
+                .tickSubdivide(4)
+                .tickSize(15, 25, 10)
+                .tickPadding(15)
+                .scale(d3.scale.linear()
+                        .domain([0, 100])
+                        .range([-3*Math.PI/4, 3*Math.PI/4]));
+
+        var segDisplay = iopctrl.segdisplay()
+                .width(90)
+                .digitCount(4)
+                .negative(false)
+                .decimals(0);
+
+        svg.append("g")
+                .attr("class", "segdisplay")
+                .attr("transform", "translate(170, 230)")
+                .call(segDisplay);
+
+        svg.append("g")
+                .attr("class", "gauge")
+                .call(gauge);
+
+//        segDisplay.value(56749); //set this to change
+        //gauge.value(92); //set this to change
+    var dis =0
+    function getTick(setTick){
+       if(setTick != 0) {
+           dis +=setTick;
+            segDisplay.value(setTick); 
+       }
+        gauge.value(setTick); //set this to change
+       
+       
+    }
+            
+            
+            
+            
+  
+/* global $ */
+var currentFps;
+function setWalking(walk){
+    
+  currentFps = walk; 
+  console.log("walk"+currentFps); 
+  
+    
+}
+
+var animationSettings = {
+    fps: currentFps,
+    loop: false,
+    autoplay: false,
+//    duration: 1000,
+    animations: {
+        walkRight: [0, 1, 2, 3, 4, 5,0],
+        walkLeft: [15, 14, 13, 12, 11, 10, 9, 8]
+    },
+    complete: function(){
+        // this will be called when
+        // there is no loop and the
+        // animation finishes
+        console.log('animation End');
+    }
+};
+
+
+
+$('.animation').animateSprite(animationSettings);
+// $('.animation').animateSprite('play');
+
+//var goLeft = function(){
+//    $('.animation').animateSprite('play', 'walkLeft');
+//}
+//
+//function goRight(){
+//    $('.animation').animateSprite('play', 'walkRight');
+//}
+
+
+
+//var goRight = function(){
+//    $('.animation').animateSprite('play', 'walkRight');
+//}
+//
+//var play = function(){
+//    $('.animation').animateSprite('play');
+//}
+
+function play(){
+  $('.animation').animateSprite('play');  
+}
+            
+
+
+function setReset(){
+    $('.animation').animateSprite('restart');
+    
+    
+}            
+            
+            
+//$('#restart').on('click', function(){
+//    $('.animation').animateSprite('restart');
+//});
+
+//$('#changeFPS').on('click', function(){
+//    currentFps = (currentFps === 12) ? 3 : 12;
+//    $('.animation').animateSprite('fps', currentFps);
+//});
+//
+//$('#remove').on('click', function(){
+//    $('.animation').remove();
+//});
+//
+//$('body').on('keydown', function(ev){
+//    if (ev.keyCode === 39){
+//        goRight();
+//    } else if (ev.keyCode === 37) {
+//        goLeft();
+//    }
+//    console.log('ev', ev.keyCode);
+//});
+        </script>
+        
+        
+        
+    </body>
+</html>
