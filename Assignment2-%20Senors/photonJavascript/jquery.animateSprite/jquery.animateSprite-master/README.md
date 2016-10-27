@@ -15,6 +15,8 @@ This was done via the Particle cloud.</p>
 
 <p> Using my Input device, I am sensing the x, y and Z co-ordinates from the Accelerometer,and calculating the magnitude at the first point. I then read in a second x, y, z Accelerometer values and calculate the magnitude as well. If the difference in the magnitude at point A and B is greater than my set Threshold value, it means that a change has occured, thus, motion has begun.</p>
 
+<p><b>* In the future, this display will be used on some kind of wearable device</b></p>
+
  <h2>Libraries</h2>
  <ul>
     <li><a href="https://d3js.org/" target="_blank">
@@ -38,7 +40,7 @@ Input Visuation
  </ul>
 
 
-<h3>Photon code </h3>
+<h2>Photon code </h2>
 <p>Main code adopted from Adafruit.com, and customized by  me</p>
 <p>This reads Inputs from the sensor, publishing it to the cloud. The output device (Neopixel strips) subscribes to the data, and displays accordingly</p>
 
