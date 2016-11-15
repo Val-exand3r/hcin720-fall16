@@ -18,7 +18,6 @@
       <li>Software- Adobe Illustrator</li>
   </ul>
 </ol>
-
 <h2>3D Printed Case- Speedometer </h2>
 ![3dtop](https://cloud.githubusercontent.com/assets/21236284/20323850/729fc4e4-ab4c-11e6-94a9-e1b99c5e846d.jpg)
 <p>Figure 1:The top of the 3D printed box</p>
