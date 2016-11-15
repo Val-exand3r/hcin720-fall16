@@ -25,8 +25,8 @@
 ![3dcolor](https://cloud.githubusercontent.com/assets/21236284/20323890/9cfe2366-ab4c-11e6-9f45-c2e66df13087.jpg)
 <p>Figure 2: 3D-Image with the bliking LED</p>
 
-<p>It was build to look like a speedometer. Enclosed in a Flora LSM 9DOF Motion Sensor. It is used to sense changes in motion, and sends a signal to 2 output  devices (Neopixel Strips, and Servo motor.</p>
-<p>When a motion signal is received, the Neopixel strip, displays a rainbow color, and at the same time, the hand of a 3D printed clock, placed on the servo motor also moves.</p>
+<p>It was build to look like a speedometer. Enclosed is a Flora LSM 9DOF Motion Sensor. It is used to sense changes in motion, and sends signals to 2 output  devices (Neopixel Strips, and Servo motor.</p>
+<p>When a motion signal is received, the Neopixel strip, displays a rainbow color, and at the same time, the hand of a 3D printed clock, placed on the servo motor, also moves.</p>
 
 
 <h2>Laser Case- CLOCK</h2>
@@ -37,7 +37,7 @@
 <p>Figure 4:Laser cut wooden clock with Neopixel strip</p>
 
 
-<p>It was built to look like a clock with gears around it. the entire case was built with wood. It also has a Neopixel strip and Servo motor attached to it. and has the same function as the  3d printed case above</p>
+<p>It was built to look like a clock with gears around it. the entire case was built with wood, and wrapped with a brown wrapping paper. It also has a Neopixel strip and Servo motor attached to it, and has the same functionalities as the 3d printed case above</p>
 
 
 
