@@ -26,8 +26,7 @@
 
 <p>It was build to look like a speedometer. Enclosed in a Flora LSM 9DOF Motion Sensor. It is used to sense changes in motion, and sends a signal to 2 output  devices (Neopixel Strips, and Servo motor.</p><br>
 <p>When a motion signal is received, the Neopixel strip, displays a rainbow color, and at the same time, the hand of a 3D printed clock, placed on the servo motor also moves.</p>
-
-
+![imag1266](https://cloud.githubusercontent.com/assets/21236284/20323766/1da524a2-ab4c-11e6-9f29-7d24cb6fba7b.jpg)
 
 <h2>Laser Case- CLOCK</h2>
 ![][laser]
@@ -296,7 +295,7 @@ void loop()
     // Particle.publish("Acceleration", publishAcceleration);
     
     // sprintf(publishGyroscope,"%.2f,%.2f,%.2f",lsm.gyroData.x,lsm.gyroData.x,lsm.gyroData.
-    // z);
+C:\Users\valer\Desktop\HCI FILES\FALL 2016    // z);
     // Particle.publish("Gyroscope", publishGyroscope);
    // double sending =(newVector - storedVector);
    // if(sending>0)
@@ -305,7 +304,8 @@ void loop()
      Particle.publish("motionChange", String(sending)  );
      delay(100);
        myservo.write(180);
-       
+
+
        delay(100);
        myservo.write(0);
      //publish(String(sending));
