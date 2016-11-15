@@ -25,13 +25,13 @@
 ![3dcolor](https://cloud.githubusercontent.com/assets/21236284/20323890/9cfe2366-ab4c-11e6-9f45-c2e66df13087.jpg)
 <p>Figure 2: 3D-Image with the bliking LED</p>
 
-<p>It was build to look like a speedometer. Enclosed in a Flora LSM 9DOF Motion Sensor. It is used to sense changes in motion, and sends a signal to 2 output  devices (Neopixel Strips, and Servo motor.</p><br>
+<p>It was build to look like a speedometer. Enclosed in a Flora LSM 9DOF Motion Sensor. It is used to sense changes in motion, and sends a signal to 2 output  devices (Neopixel Strips, and Servo motor.</p>
 <p>When a motion signal is received, the Neopixel strip, displays a rainbow color, and at the same time, the hand of a 3D printed clock, placed on the servo motor also moves.</p>
 
 
 <h2>Laser Case- CLOCK</h2>
 ![lasertop](https://cloud.githubusercontent.com/assets/21236284/20324000/f172076e-ab4c-11e6-9a83-31f69b7edc4b.jpg)
-<p>Figure 3: Laser cut wooden clock. </p>
+<p>Figure 3: Laser cut wooden clock</p>
 
 ![laserrainbow](https://cloud.githubusercontent.com/assets/21236284/20324149/67c64b78-ab4d-11e6-869c-17c6323af657.jpg)
 <p>Figure 4:Laser cut wooden clock with Neopixel strip</p>
@@ -42,9 +42,7 @@
 
 
 ![imag1331](https://cloud.githubusercontent.com/assets/21236284/20324202/9e3c80be-ab4d-11e6-85f4-5addde12a408.jpg)
-<p>Figure 5: Both 3D case and Laser Case running together
-
-</p>
+<p>Figure 5: Both 3D case and Laser Case running together</p>
 <h2>New Photon code to include the Servo motor functionality</h2>
 
 ```c
